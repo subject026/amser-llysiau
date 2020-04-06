@@ -21,7 +21,7 @@ export const create = (props: TCreateProjectProps): TProject => {
   let { githubRepo, isStar } = props;
   githubRepo = githubRepo || false;
   isStar = isStar || false;
-  if (!title) handleError('Error! createNewProject() - no project title provided');
+  if (!title || !title.length) handleError('Error! createNewProject() - no project title provided');
 
   const created = Date.now();
 

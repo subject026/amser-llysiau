@@ -12,7 +12,6 @@ export default (projectId: string): TTasks => {
       projectId,
       githubIssue: false,
     });
-    console.log(newTask);
     tasksObject[newTask.id] = newTask;
   }
   return tasksObject;

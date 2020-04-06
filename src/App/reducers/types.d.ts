@@ -4,8 +4,10 @@ type TViewState = {
 };
 
 type TState = {
-  appData: {
-    projects?: TProjects;
-  };
+  appData: TAppData;
   view: TViewState;
+};
+
+type TAppData = {
+  projects: TProjects;
 };

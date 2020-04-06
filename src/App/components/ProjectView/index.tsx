@@ -1,5 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { useSelector } from '../../reducers';
+
+import Form from '../styled/form';
+import { SELECT_TASK, CREATE_TASK } from '../../actions';
+import { create as CreateTask } from '../../entities/task';
 
 const Section = styled.section`
   display: grid;
@@ -27,32 +33,54 @@ const SessionsView = styled.div`
   grid-row-end: 3;
 `;
 
-type TProjectView = {
-  project: TProject;
-  view: TViewState;
-  selectTask: (taskId: string) => void;
-};
+const ProjectView: React.FC = (): React.ReactElement => {
+  const { view, appData } = useSelector(state => state);
+  const dispatch = useDispatch();
 
-const ProjectView: React.FC<TProjectView> = (props: TProjectView): React.ReactElement => {
-  const [projectViewState, setprojectViewState] = React.useState({ taskId: '' });
+  const [state, setState] = React.useState({ taskTitle: '' });
 
-  const handleSelectTaskClick = (taskId: string): void => {
-    setprojectViewState(state => ({
-      ...state,
-      view: {
-        taskId,
-      },
-    }));
+  const handleFormInputChange = (event: any): void => {
+    const taskTitle = event.target.value;
+    setState({ taskTitle });
   };
 
-  const {
-    project: { title, tasks, id },
-  } = props;
-  const { taskId } = projectViewState;
+  const addTask = () => {
+    if (state.taskTitle.length) {
+      dispatch(
+        CREATE_TASK(
+          CreateTask({ title: state.taskTitle, projectId: view.projectId, githubIssue: false }),
+        ),
+      );
+      setState({ taskTitle: '' });
+    }
+  };
+
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    addTask();
+  };
+
+  const { tasks, id } = appData.projects[view.projectId];
+  // console.log('title ', title);
+
   return (
     <Section key={id}>
       <ProjectHeader>
-        <h3>{title}</h3>
+        <Form onSubmit={handleFormSubmit}>
+          <section>
+            <label htmlFor="title">project title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={state.taskTitle}
+              onChange={handleFormInputChange}
+            />
+            <button type="submit" onClick={addTask} disabled={state.taskTitle.length < 1}>
+              add task
+            </button>
+          </section>
+        </Form>
       </ProjectHeader>
       <TasksView>
         <h4>tasks:</h4>
@@ -62,7 +90,7 @@ const ProjectView: React.FC<TProjectView> = (props: TProjectView): React.ReactEl
             return (
               <li key={task.id}>
                 <h5>{task.title}</h5>
-                <button type="button" onClick={() => handleSelectTaskClick(task.id)}>
+                <button type="button" onClick={() => dispatch(SELECT_TASK(task.id))}>
                   select task
                 </button>
               </li>
@@ -74,8 +102,8 @@ const ProjectView: React.FC<TProjectView> = (props: TProjectView): React.ReactEl
         <div>
           <p>sessionzz</p>
           {() => {
-            if (taskId) {
-              const { sessions } = tasks[taskId];
+            if (view.taskId) {
+              const { sessions } = tasks[view.taskId];
               return Object.keys(sessions).map(key => {
                 const { focus } = sessions[key];
                 return (

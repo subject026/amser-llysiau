@@ -1,7 +1,14 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 
-const Section = styled.section`
+import { useSelector } from '../../reducers';
+import { PROJECT_STAR_TOGGLE, SELECT_PROJECT, CREATE_PROJECT } from '../../actions';
+import { create as CreateProject } from '../../entities/project';
+import Form from '../styled/form';
+
+const Section = styled.section``;
+const CardGrid = styled.section`
   padding: 15px;
   @media (min-width: 750px) {
     display: grid;
@@ -35,50 +42,121 @@ const ToggleStar = styled.div`
     display: flex;
     align-items: center;
     path {
-      fill: ${props => (props.isStar ? 'yellow' : 'grey')};
+      fill: ${(props: { isStar: boolean }) => (props.isStar ? 'yellow' : 'grey')};
     }
   }
 `;
 
-type TProjectsView = {
-  projects: TProjects;
-  selectProject: (projectId: string) => void;
-};
+const ProjectsView: React.FC = (): React.ReactElement => {
+  const {
+    appData: { projects },
+  } = useSelector(appState => appState);
 
-const ProjectsView: React.FC<TProjectsView> = (props: TProjectsView): React.ReactElement => {
-  const { projects, selectProject } = props;
+  const [state, setState] = React.useState({ title: '' });
 
-  const handleOpenProjectClick = (projectId: string) => {
-    selectProject(projectId);
+  const dispatch = useDispatch();
+
+  const handleFormInputChange = (event: any): void => {
+    const title = event.target.value;
+    setState({ title });
   };
 
-  const handleStarToggleClick = (projectId: string) => {
-    console.log(projects[projectId].title);
+  const addProject = () => {
+    if (state.title.length) {
+      dispatch(CREATE_PROJECT(CreateProject({ title: state.title })));
+      setState({ title: '' });
+    }
   };
 
+  const handleAddProject = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    addProject();
+  };
+
+  console.log('projectzz', projects);
   return (
     <Section>
-      {Object.keys(projects).map(projectId => {
-        console.log(projectId); // eslint-disable-line
-        const project = projects[projectId];
-        return (
-          <ProjectCard key={project.id}>
-            <CardTitle>{project.title}</CardTitle>
-            <ToggleStar isStar={project.isStar}>
-              <button type="button" onClick={() => handleStarToggleClick(project.id)}>
-                <svg width="20" height="19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z" />
-                </svg>
-              </button>
-            </ToggleStar>
-            <div>
-              <button type="button" onClick={() => handleOpenProjectClick(projectId)}>
-                open project
-              </button>
-            </div>
-          </ProjectCard>
-        );
-      })}
+      <Form onSubmit={handleAddProject}>
+        <section>
+          <label htmlFor="title">project title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={state.title}
+            onChange={handleFormInputChange}
+          />
+          <button type="submit" onClick={addProject} disabled={state.title.length < 1}>
+            add project
+          </button>
+        </section>
+      </Form>
+      {Object.keys(projects).length > 0 &&
+        (() => {
+          const { starred, notStarred } = Object.values(projects).reduce(
+            (acc, project): any => {
+              console.log(acc);
+              if (project.isStar) {
+                acc.starred.push(project);
+              } else {
+                acc.notStarred.push(project);
+              }
+              return acc;
+            },
+            {
+              starred: [],
+              notStarred: [],
+            },
+          );
+          return (
+            <>
+              <CardGrid>
+                {starred.map((project: TProject) => (
+                  <ProjectCard key={project.id}>
+                    <CardTitle>{project.title}</CardTitle>
+                    <ToggleStar isStar={project.isStar}>
+                      <button
+                        type="button"
+                        onClick={() => dispatch(PROJECT_STAR_TOGGLE(project.id))}
+                      >
+                        <svg width="20" height="19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z" />
+                        </svg>
+                      </button>
+                    </ToggleStar>
+                    <div>
+                      <button type="button" onClick={() => dispatch(SELECT_PROJECT(project.id))}>
+                        open project
+                      </button>
+                    </div>
+                  </ProjectCard>
+                ))}
+              </CardGrid>
+              <CardGrid>
+                {notStarred.map((project: TProject) => (
+                  <ProjectCard key={project.id}>
+                    <CardTitle>{project.title}</CardTitle>
+                    <ToggleStar isStar={project.isStar}>
+                      <button
+                        type="button"
+                        onClick={() => dispatch(PROJECT_STAR_TOGGLE(project.id))}
+                      >
+                        <svg width="20" height="19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z" />
+                        </svg>
+                      </button>
+                    </ToggleStar>
+                    <div>
+                      <button type="button" onClick={() => dispatch(SELECT_PROJECT(project.id))}>
+                        open project
+                      </button>
+                    </div>
+                  </ProjectCard>
+                ))}
+              </CardGrid>
+            </>
+          );
+        })()}
     </Section>
   );
 };
