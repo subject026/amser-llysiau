@@ -1,19 +1,31 @@
 import { v4 as uuid } from 'uuid';
 
-import handleError from '../util/error';
+export type TCreateSession = {
+  focus: string;
+  projectId: string;
+  taskId: string;
+  startTime: number;
+  finishTime: number;
+};
 
-export default (
-  focus: string,
-  startTime: number,
-  finishTime: number,
-  projectId: string,
-  taskId: string,
-): TSession | void => {
-  if (!focus) return handleError('Error! createNewSession() - no focus provided');
-  if (!startTime) return handleError('Error! createNewSession() - no start time provided');
-  if (!finishTime) return handleError('Error! createNewSession() - no finish time provided');
-  if (!projectId) return handleError('Error! createNewSession() - no projectId provided');
-  if (!taskId) return handleError('Error! createNewSession() - no taskId provided');
+export const createSession = (props: TCreateSession): TSession => {
+  const { focus, startTime, finishTime, projectId, taskId } = props;
+
+  if (!focus) {
+    throw new Error('Error! createNewSession() - no focus provided');
+  }
+  if (!startTime) {
+    throw new Error('Error! createNewSession() - no start time provided');
+  }
+  if (!finishTime) {
+    throw new Error('Error! createNewSession() - no finish time provided');
+  }
+  if (!projectId) {
+    throw new Error('Error! createNewSession() - no projectId provided');
+  }
+  if (!taskId) {
+    throw new Error('Error! createNewSession() - no taskId provided');
+  }
 
   return {
     id: uuid(),
@@ -23,4 +35,8 @@ export default (
     projectId,
     taskId,
   };
+};
+
+export const del = () => {
+  //
 };

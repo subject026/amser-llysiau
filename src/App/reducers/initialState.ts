@@ -2,7 +2,7 @@ const initialState: TState = {
   appData: {
     projects: {},
   },
-  view: {},
+  view: { timerIsOpen: false },
 };
 
 export default initialState;

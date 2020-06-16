@@ -10,9 +10,8 @@ export const projects = (state: TAppData = initialState.appData, action: TAction
       return newAppData;
 
     case 'PROJECT_STAR_TOGGLE':
-      newAppData.projects[action.payload.projectId].isStar = !newAppData.projects[
-        action.payload.projectId
-      ].isStar;
+      console.log(action);
+      newAppData.projects[action.payload.projectId].isStar = !newAppData.projects[action.payload.projectId].isStar;
       return newAppData;
     case 'CREATE_PROJECT':
       newAppData.projects[action.payload.project.id] = action.payload.project;
@@ -26,12 +25,10 @@ export const projects = (state: TAppData = initialState.appData, action: TAction
     //
     //
     case 'CREATE_TASK':
-      newAppData.projects[action.payload.task.projectId].tasks[action.payload.task.id] =
-        action.payload.task;
+      newAppData.projects[action.payload.task.projectId].tasks[action.payload.task.id] = action.payload.task;
       return newAppData;
     case 'UPDATE_TASK':
-      newAppData.projects[action.payload.task.projectId].tasks[action.payload.task.id] =
-        action.payload.task;
+      newAppData.projects[action.payload.task.projectId].tasks[action.payload.task.id] = action.payload.task;
       return newAppData;
     case 'DELETE_TASK':
       delete newAppData.projects[action.payload.task.projectId].tasks[action.payload.task.id];
@@ -41,19 +38,19 @@ export const projects = (state: TAppData = initialState.appData, action: TAction
     //
     //
     case 'CREATE_SESSION':
-      newAppData.projects[action.payload.session.projectId].tasks[
-        action.payload.session.taskId
-      ].sessions[action.payload.session.id] = action.payload.session;
+      newAppData.projects[action.payload.session.projectId].tasks[action.payload.session.taskId].sessions[
+        action.payload.session.id
+      ] = action.payload.session;
       return newAppData;
     case 'UPDATE_SESSION':
-      newAppData.projects[action.payload.session.projectId].tasks[
-        action.payload.session.taskId
-      ].sessions[action.payload.session.id] = action.payload.session;
+      newAppData.projects[action.payload.session.projectId].tasks[action.payload.session.taskId].sessions[
+        action.payload.session.id
+      ] = action.payload.session;
       return newAppData;
     case 'DELETE_SESSION':
-      delete newAppData.projects[action.payload.session.projectId].tasks[
-        action.payload.session.taskId
-      ].sessions[action.payload.session.id];
+      delete newAppData.projects[action.payload.session.projectId].tasks[action.payload.session.taskId].sessions[
+        action.payload.session.id
+      ];
       return newAppData;
   }
 };

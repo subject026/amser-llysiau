@@ -6,6 +6,11 @@
   "rules": {
     "arrow-parens": "off",
     "operator-linebreak": "off",
-    "jsx-a11y/label-has-associated-control": "off"
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/indent": "off",
+    "import/no-named-as-default-member": "off",
+    "no-console": "off",
+    "object-curly-newline": "off"
   }
 }

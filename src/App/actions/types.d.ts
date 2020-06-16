@@ -1,6 +1,6 @@
 type TAction = {
   type: string;
-  payload: {
+  payload?: {
     project?: TProject;
     task?: TTask;
     session?: TSession;

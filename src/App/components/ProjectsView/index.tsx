@@ -6,10 +6,13 @@ import { useSelector } from '../../reducers';
 import { PROJECT_STAR_TOGGLE, SELECT_PROJECT, CREATE_PROJECT } from '../../actions';
 import { create as CreateProject } from '../../entities/project';
 import Form from '../styled/form';
+import Wrapper from '../styled/wrapper';
+import { StarToggleButton } from '../styled/buttons';
+import { TextButton } from '../styled/buttons/styled';
 
 const Section = styled.section``;
 const CardGrid = styled.section`
-  padding: 15px;
+  padding: 15px 0;
   @media (min-width: 750px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -38,19 +41,12 @@ const ToggleStar = styled.div`
   grid-row-end: 2;
   display: flex;
   align-items: center;
-  button {
-    display: flex;
-    align-items: center;
-    path {
-      fill: ${(props: { isStar: boolean }) => (props.isStar ? 'yellow' : 'grey')};
-    }
-  }
 `;
 
 const ProjectsView: React.FC = (): React.ReactElement => {
   const {
     appData: { projects },
-  } = useSelector(appState => appState);
+  } = useSelector((appState) => appState);
 
   const [state, setState] = React.useState({ title: '' });
 
@@ -73,29 +69,23 @@ const ProjectsView: React.FC = (): React.ReactElement => {
     addProject();
   };
 
-  console.log('projectzz', projects);
   return (
     <Section>
       <Form onSubmit={handleAddProject}>
-        <section>
-          <label htmlFor="title">project title</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={state.title}
-            onChange={handleFormInputChange}
-          />
-          <button type="submit" onClick={addProject} disabled={state.title.length < 1}>
-            add project
-          </button>
-        </section>
+        <Wrapper>
+          <section>
+            <label htmlFor="title">project title</label>
+            <input type="text" id="title" name="title" value={state.title} onChange={handleFormInputChange} />
+            <TextButton onClick={addProject} disabled={state.title.length < 1}>
+              add project
+            </TextButton>
+          </section>
+        </Wrapper>
       </Form>
       {Object.keys(projects).length > 0 &&
         (() => {
           const { starred, notStarred } = Object.values(projects).reduce(
             (acc, project): any => {
-              console.log(acc);
               if (project.isStar) {
                 acc.starred.push(project);
               } else {
@@ -109,52 +99,48 @@ const ProjectsView: React.FC = (): React.ReactElement => {
             },
           );
           return (
-            <>
+            <Wrapper>
               <CardGrid>
-                {starred.map((project: TProject) => (
-                  <ProjectCard key={project.id}>
-                    <CardTitle>{project.title}</CardTitle>
-                    <ToggleStar isStar={project.isStar}>
-                      <button
-                        type="button"
-                        onClick={() => dispatch(PROJECT_STAR_TOGGLE(project.id))}
-                      >
-                        <svg width="20" height="19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z" />
-                        </svg>
-                      </button>
-                    </ToggleStar>
-                    <div>
-                      <button type="button" onClick={() => dispatch(SELECT_PROJECT(project.id))}>
-                        open project
-                      </button>
-                    </div>
-                  </ProjectCard>
-                ))}
+                {starred.map((project: TProject) => {
+                  console.log(project.isStar);
+                  return (
+                    <ProjectCard key={project.id}>
+                      <CardTitle>{project.title}</CardTitle>
+                      <ToggleStar>
+                        <StarToggleButton
+                          isStar={project.isStar}
+                          onClick={() => dispatch(PROJECT_STAR_TOGGLE(project.id))}
+                        />
+                      </ToggleStar>
+                      <div>
+                        <TextButton type="button" onClick={() => dispatch(SELECT_PROJECT(project.id))}>open project</TextButton>
+                      </div>
+                    </ProjectCard>
+                  );
+                })}
               </CardGrid>
               <CardGrid>
                 {notStarred.map((project: TProject) => (
                   <ProjectCard key={project.id}>
                     <CardTitle>{project.title}</CardTitle>
-                    <ToggleStar isStar={project.isStar}>
-                      <button
-                        type="button"
-                        onClick={() => dispatch(PROJECT_STAR_TOGGLE(project.id))}
-                      >
-                        <svg width="20" height="19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19 10 15.27z" />
-                        </svg>
-                      </button>
-                    </ToggleStar>
+                    <StarToggleButton
+                      isStar={project.isStar}
+                      onClick={() => dispatch(PROJECT_STAR_TOGGLE(project.id))}
+                    />
+
                     <div>
-                      <button type="button" onClick={() => dispatch(SELECT_PROJECT(project.id))}>
+                      <TextButton
+                        onClick={() => {
+                          dispatch(SELECT_PROJECT(project.id));
+                        }}
+                      >
                         open project
-                      </button>
+                      </TextButton>
                     </div>
                   </ProjectCard>
                 ))}
               </CardGrid>
-            </>
+            </Wrapper>
           );
         })()}
     </Section>

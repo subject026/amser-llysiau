@@ -12,7 +12,7 @@ const createProjectsObject = (projectNames: string[]): TProjects => {
     projects[project.id] = project;
 
     // load some tasks
-    projects[project.id].tasks = createTasksObject(project.id);
+    projects[project.id].tasks = createTasksObject(project.id, name);
   });
 
   return projects;
