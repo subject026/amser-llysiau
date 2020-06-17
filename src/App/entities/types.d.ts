@@ -46,3 +46,5 @@ type TProjectUpdates = {
 type TTaskUpdates = {
   title: string;
 };
+
+declare module 'react-rotary-knob';

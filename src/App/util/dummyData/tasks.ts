@@ -15,7 +15,7 @@ export default (projectId: string, name: string): TTasks => {
     tasksObject[newTask.id] = newTask;
     if (name === 'project 1' && i === 0) {
       for (let i2 = 0; i2 < tasksCount; i2 += 1) {
-        const newSession = Session.create({
+        const newSession = Session.createSession({
           focus: getRandomString(Math.random() * 10),
           projectId,
           taskId: newTask.id,

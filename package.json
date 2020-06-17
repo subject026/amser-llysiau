@@ -41,7 +41,7 @@
     "react-rotary-knob": "^1.1.8",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
-    "serve": "^11.3.0",
+    "serve": "^11.3.2",
     "source-map-loader": "^0.2.4",
     "styled-components": "^5.0.1",
     "ts-jest": "^25.3.0",
@@ -50,6 +50,6 @@
     "webpack": "^4.42.0",
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.11.0"
   }
 }
