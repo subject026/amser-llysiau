@@ -1,0 +1,2 @@
+prevent session start if no task selected
+
