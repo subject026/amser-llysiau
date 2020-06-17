@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export type TButtonElProps = {
   isStar: boolean;
@@ -15,6 +15,13 @@ export const ButtonEl = styled.button`
 `;
 
 export const TextButton = styled.button`
-  color: #eee;
-  background-color: #202020;
+  ${({ theme }) => css`
+    color: #eee;
+    background-color: #202020;
+    padding: 1rem;
+    font-size: ${theme.button.default.fontSize};
+    &:hover {
+      cursor: pointer;
+    }
+  `}
 `;

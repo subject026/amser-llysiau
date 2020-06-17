@@ -7,8 +7,9 @@ import { PROJECT_STAR_TOGGLE, SELECT_PROJECT, CREATE_PROJECT } from '../../actio
 import { create as CreateProject } from '../../entities/project';
 import Form from '../styled/form';
 import Wrapper from '../styled/wrapper';
+import Input from '../styled/Input';
 import { StarToggleButton } from '../styled/buttons';
-import { TextButton } from '../styled/buttons/styled';
+import Button from '../Button';
 
 const Section = styled.section``;
 const CardGrid = styled.section`
@@ -75,10 +76,10 @@ const ProjectsView: React.FC = (): React.ReactElement => {
         <Wrapper>
           <section>
             <label htmlFor="title">project title</label>
-            <input type="text" id="title" name="title" value={state.title} onChange={handleFormInputChange} />
-            <TextButton onClick={addProject} disabled={state.title.length < 1}>
+            <Input type="text" id="title" name="title" value={state.title} onChange={handleFormInputChange} />
+            <Button onClick={addProject} disabled={state.title.length < 1}>
               add project
-            </TextButton>
+            </Button>
           </section>
         </Wrapper>
       </Form>
@@ -113,7 +114,7 @@ const ProjectsView: React.FC = (): React.ReactElement => {
                         />
                       </ToggleStar>
                       <div>
-                        <TextButton type="button" onClick={() => dispatch(SELECT_PROJECT(project.id))}>open project</TextButton>
+                        <Button onClick={() => dispatch(SELECT_PROJECT(project.id))}>open project</Button>
                       </div>
                     </ProjectCard>
                   );
@@ -129,13 +130,13 @@ const ProjectsView: React.FC = (): React.ReactElement => {
                     />
 
                     <div>
-                      <TextButton
+                      <Button
                         onClick={() => {
                           dispatch(SELECT_PROJECT(project.id));
                         }}
                       >
                         open project
-                      </TextButton>
+                      </Button>
                     </div>
                   </ProjectCard>
                 ))}
