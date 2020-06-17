@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle, css } from 'styled-components';
 
 import createProjectsObject from './util/dummyData';
 import { HYDRATE_PROJECTS, VIEW_PROJECTS, VIEW_BACK } from './actions';
@@ -25,12 +25,14 @@ const GlobalStyles = createGlobalStyle`
 `;
 
 const Header = styled.header`
-  background-color: lightcoral;
-  padding: 20px 0;
-  h1 {
-    font-size: 40px;
-    margin: none;
-  }
+  ${({ theme }) => css`
+    background-color: ${theme.colors['grey-100']};
+    padding: 20px 0;
+    h1 {
+      font-size: 40px;
+      margin: none;
+    }
+  `}
 `;
 
 const App: React.FC = (): React.ReactElement => {
@@ -95,6 +97,12 @@ const App: React.FC = (): React.ReactElement => {
           )} */}
         </Wrapper>
       </Header>
+      {/* ROUTER HERE
+          
+            /projects
+            /project/*project-id*
+            
+          */}
       {view.projectId && <ProjectView />}
       {!view.projectId && <ProjectsView />}
     </>
