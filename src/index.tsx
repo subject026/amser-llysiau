@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 
 import rootReducer from './App/reducers';
 import App from './App';
-import Theme from './App/components/Theme';
+import Theme from './App/components/styled/Theme';
 
 const store = createStore(rootReducer, composeWithDevTools());
 

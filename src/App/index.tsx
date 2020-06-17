@@ -17,6 +17,7 @@ const GlobalStyles = createGlobalStyle`
 }
 
   body {
+    font-size: ${({ theme }) => theme.layout.base};
     margin: 0;
     overflow-y: scroll;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -26,11 +27,12 @@ const GlobalStyles = createGlobalStyle`
 
 const Header = styled.header`
   ${({ theme }) => css`
-    background-color: ${theme.colors['grey-100']};
-    padding: 20px 0;
+    background-color: ${theme.colors.grey100};
+    color: ${theme.colors.grey800};
+    height: ${theme.layout.base10};
     h1 {
       font-size: 40px;
-      margin: none;
+      margin: 0;
     }
   `}
 `;
