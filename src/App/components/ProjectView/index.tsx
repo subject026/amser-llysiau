@@ -199,6 +199,9 @@ const ProjectView: React.FC = (): React.ReactElement => {
                   console.log('task sessions: ', sessions);
 
                   return Object.keys(sessions).map((key) => {
+                    const session = sessions[key];
+                    const sessionLength = (session.finishTime - session.startTime) / 1000;
+                    console.log('sessionLength: ', sessionLength);
                     const { focus } = sessions[key];
                     return (
                       <SessionSection>

@@ -38,6 +38,7 @@
     "html-loader": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
     "react": "^16.13.1",
+    "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-rotary-knob": "^1.1.8",

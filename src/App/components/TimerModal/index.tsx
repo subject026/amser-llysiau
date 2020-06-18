@@ -123,6 +123,7 @@ const TimerModal: React.FC = (): React.ReactElement => {
 
   const tick = () => {
     if (Date.now() - lastTick > 1000) {
+      console.log('lastTick: ', lastTick);
       let newSecondsRemaining;
       setState((prevState) => {
         newSecondsRemaining = prevState.secondsRemaining - 1;
@@ -140,12 +141,16 @@ const TimerModal: React.FC = (): React.ReactElement => {
 
   const handleStartClick = () => {
     setState(
-      (prevState): TTimerState => ({
-        ...prevState,
-        timerState: TimerStates.RUNNING,
-        secondsRemaining: prevState.sessionLengthMinutes * 60,
-        startTime: Date.now(),
-      }),
+      (prevState): TTimerState => {
+        // const secondsRemaining = prevState.sessionLengthMinutes * 60;
+        const secondsRemaining = 3;
+        return {
+          ...prevState,
+          timerState: TimerStates.RUNNING,
+          secondsRemaining,
+          startTime: Date.now(),
+        };
+      },
     );
 
     lastTick = Date.now();
