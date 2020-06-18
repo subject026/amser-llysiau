@@ -11,6 +11,14 @@ const Theme = {
   },
   layout: {
     base: '16px',
+    base2: '32px',
+    base3: '48px',
+    base4: '64px',
+    base5: '80px',
+    base6: '96px',
+    base7: '112px',
+    base8: '128px',
+    base9: '144px',
     base10: '160px',
   },
   button: {
