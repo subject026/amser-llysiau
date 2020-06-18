@@ -8,7 +8,7 @@ import { create as CreateProject } from '../../entities/project';
 import Form from '../styled/form';
 import Wrapper from '../styled/wrapper';
 import Input from '../styled/Input';
-import { StarToggleButton } from '../styled/buttons';
+import { StarToggleButton } from '../Button';
 import Button from '../Button';
 
 const Section = styled.section``;

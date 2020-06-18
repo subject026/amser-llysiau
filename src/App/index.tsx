@@ -10,6 +10,7 @@ import Wrapper from './components/styled/wrapper';
 import ProjectsView from './components/ProjectsView';
 import ProjectView from './components/ProjectView';
 import TimerModal from './components/TimerModal/index';
+import Button from './components/Button';
 
 const GlobalStyles = createGlobalStyle`
 * {
@@ -84,9 +85,7 @@ const App: React.FC = (): React.ReactElement => {
           <h1>{view.projectId ? projects[view.projectId].title : ';'}</h1>
           {view.projectId && (
             <>
-              <button type="button" onClick={() => dispatch(VIEW_PROJECTS())}>
-                back to projects
-              </button>
+              <Button onClick={() => dispatch(VIEW_PROJECTS())}>back to projects</Button>
               <button type="button" onClick={() => dispatch(VIEW_BACK())}>
                 back
               </button>
