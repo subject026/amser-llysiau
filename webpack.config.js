@@ -23,6 +23,10 @@ const baseConfig = {
         enforce: 'pre',
       },
       {
+        test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
+        loader: 'file-loader',
+      },
+      {
         test: /\.html$/,
         use: [
           {
