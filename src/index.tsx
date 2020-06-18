@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { ThemeProvider } from 'styled-components';
 
-import rootReducer from './App/reducers';
+import rootReducer from './App/state/reducers';
 import App from './App';
 import Theme from './App/components/styled/Theme';
 

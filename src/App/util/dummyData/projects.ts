@@ -1,4 +1,4 @@
-import Entities from '../../entities';
+import Entities from '../../state/entities';
 // import getRandomString from './randomString';
 import createTasksObject from './tasks';
 

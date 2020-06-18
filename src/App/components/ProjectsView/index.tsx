@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import { useSelector } from '../../reducers';
-import { PROJECT_STAR_TOGGLE, SELECT_PROJECT, CREATE_PROJECT } from '../../actions';
-import { create as CreateProject } from '../../entities/project';
+import { useSelector } from '../../state/reducers';
+import { PROJECT_STAR_TOGGLE, SELECT_PROJECT, CREATE_PROJECT } from '../../state/actions';
+import { create as CreateProject } from '../../state/entities/project';
 import Form from '../styled/form';
 import Wrapper from '../styled/wrapper';
 import Input from '../styled/Input';

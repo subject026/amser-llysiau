@@ -7,9 +7,7 @@
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production && serve dist",
     "serve": "serve dist",
-    "test": "jest",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -38,7 +36,6 @@
     "html-loader": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
     "react": "^16.13.1",
-    "react-docgen-typescript-loader": "^3.7.2",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-rotary-knob": "^1.1.8",
@@ -54,11 +51,5 @@
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0"
-  },
-  "devDependencies": {
-    "@storybook/addon-actions": "^5.3.19",
-    "@storybook/addon-links": "^5.3.19",
-    "@storybook/addons": "^5.3.19",
-    "@storybook/react": "^5.3.19"
   }
 }

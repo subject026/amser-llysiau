@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import styled, { createGlobalStyle, css } from 'styled-components';
 
 import createProjectsObject from './util/dummyData';
-import { HYDRATE_PROJECTS, VIEW_PROJECTS, VIEW_BACK } from './actions';
-import { useSelector } from './reducers';
+import { HYDRATE_PROJECTS, VIEW_PROJECTS, VIEW_BACK } from './state/actions';
+import { useSelector } from './state/reducers';
 
 import Wrapper from './components/styled/wrapper';
 import ProjectsView from './components/ProjectsView';

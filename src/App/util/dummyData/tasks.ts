@@ -1,4 +1,4 @@
-import Entities from '../../entities';
+import Entities from '../../state/entities';
 import getRandomString from './randomString';
 
 const { Task, Session } = Entities;

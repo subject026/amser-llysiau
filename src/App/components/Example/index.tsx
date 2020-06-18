@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { useSelector } from '../../reducers';
+import { useSelector } from '../../state/reducers';
 
 function Example() {
   const appState = useSelector((state): TState => state);

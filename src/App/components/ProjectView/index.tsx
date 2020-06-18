@@ -1,13 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { useSelector } from '../../reducers';
+import { useSelector } from '../../state/reducers';
 
 import Form from '../styled/form';
 import Wrapper from '../styled/wrapper';
-import { SELECT_TASK, CREATE_TASK } from '../../actions';
-import { create as CreateTask } from '../../entities/task';
-import { OPEN_MODAL } from '../../actions/view';
+import { SELECT_TASK, CREATE_TASK } from '../../state/actions';
+import { create as CreateTask } from '../../state/entities/task';
+import { OPEN_MODAL } from '../../state/actions/view';
 
 type TSectionProps = {
   taskId: boolean | string;

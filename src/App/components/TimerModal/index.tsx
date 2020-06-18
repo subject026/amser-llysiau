@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { Knob } from 'react-rotary-knob';
 
-import { CREATE_SESSION, CLOSE_MODAL } from '../../actions';
-import { useSelector } from '../../reducers';
-import { createSession } from '../../entities/session';
+import { CREATE_SESSION, CLOSE_MODAL } from '../../state/actions';
+import { useSelector } from '../../state/reducers';
+import { createSession } from '../../state/entities/session';
 import handleError from '../../util/error';
 
 const Modal = styled.section`
