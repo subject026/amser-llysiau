@@ -4,11 +4,11 @@ import styled, { css } from 'styled-components';
 export const TextButtonStyled = styled.button`
   ${({ theme }) => css`
     color: #eee;
-    background-color: ${theme.button.default.color};
+    background-color: ${theme.button.primary.default.bgColor};
     background-color: #202020;
     border: 0;
     padding: 0.8rem 1.2rem;
-    font-size: ${theme.button.default.fontSize};
+    font-size: ${theme.button.primary.default.fontSize};
     font-weight: 600;
     border-radius: 4px;
     &:hover {

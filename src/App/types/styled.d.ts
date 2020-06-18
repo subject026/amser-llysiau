@@ -11,8 +11,10 @@ declare module 'styled-components' {
       [key: string]: string;
     };
     button: {
-      default: {
-        fontSize: string;
+      primary: {
+        default: {
+          [key: string]: string;
+        };
       };
     };
   }

@@ -19,7 +19,7 @@ export const TextButton = styled.button`
     color: #eee;
     background-color: #202020;
     padding: 1rem;
-    font-size: ${theme.button.default.fontSize};
+    font-size: ${theme.button.primary.default.fontSize};
     &:hover {
       cursor: pointer;
     }

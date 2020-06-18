@@ -14,8 +14,11 @@ const Theme = {
     base10: '160px',
   },
   button: {
-    default: {
-      fontSize: '1rem',
+    primary: {
+      default: {
+        fontSize: '1rem',
+        bgColor: '#585858',
+      },
     },
   },
 };
