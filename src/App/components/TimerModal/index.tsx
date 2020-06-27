@@ -7,6 +7,7 @@ import { CREATE_SESSION, CLOSE_MODAL } from '../../state/actions';
 import { useSelector } from '../../state/reducers';
 import { createSession } from '../../state/entities/session';
 import handleError from '../../util/error';
+import useAlarm from '../Alarm';
 
 const Modal = styled.section`
   z-index: 10;
@@ -47,6 +48,7 @@ type TTimerState = {
   finishTime: number | null;
   secondsRemaining: number | null;
   timerState: TimerStates;
+  alarmOn: boolean;
 };
 
 const initialState: TTimerState = {
@@ -57,6 +59,7 @@ const initialState: TTimerState = {
   finishTime: null,
   secondsRemaining: null,
   timerState: TimerStates.INIT,
+  alarmOn: false,
 };
 
 /* states
@@ -83,6 +86,8 @@ const TimerModal: React.FC = (): React.ReactElement => {
   } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [state, setState] = React.useState<TTimerState>(initialState);
+
+  const { startAlarm, stopAlarm } = useAlarm();
 
   const interval = React.useRef(null);
   let lastTick: number;
@@ -114,6 +119,10 @@ const TimerModal: React.FC = (): React.ReactElement => {
 
   const finishTimer = () => {
     window.clearInterval(interval.current);
+    startAlarm();
+    setTimeout(() => {
+      stopAlarm();
+    }, 5000);
     setState((prevState) => ({
       ...prevState,
       timerState: TimerStates.FINISHED,

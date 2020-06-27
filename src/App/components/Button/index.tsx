@@ -1,20 +1,40 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+type TTextButton = {
+  theme: any;
+  size?: string;
+  buttonStyle: string;
+};
+
 export const TextButtonStyled = styled.button`
-  ${({ theme }) => css`
-    color: #eee;
-    background-color: ${theme.button.primary.default.bgColor};
-    background-color: #202020;
-    border: 0;
-    padding: 0.8rem 1.2rem;
-    font-size: ${theme.button.primary.default.fontSize};
-    font-weight: 600;
-    border-radius: 4px;
-    &:hover {
-      cursor: pointer;
-    }
-  `}
+  ${(props: TTextButton) => {
+    const { theme, buttonStyle, size } = props;
+    console.log('size? ', size);
+    return css`
+      color: ${theme.button[buttonStyle].default.color};
+      background-color: ${theme.button[buttonStyle].default.bgColor};
+      border: ${theme.button[buttonStyle].default.border};
+      border-radius: ${theme.button[buttonStyle].default.borderRadius};
+      padding: ${size ? theme.button.padding[size] : theme.button.padding.medium};
+      font-size: ${theme.button.primary.default.fontSize};
+
+      font-weight: 600;
+      border-radius: 2px;
+      transition: transform 0.1s ease-out;
+      &:hover {
+        cursor: pointer;
+        /* color: ${theme.button[buttonStyle].hover.color};
+        background-color: ${theme.button[buttonStyle].hover.bgColor}; */
+        transform: scale(1.05);
+      }
+      &:focus {
+        /* color: ${theme.button[buttonStyle].hover.color};
+        background-color: ${theme.button[buttonStyle].hover.bgColor}; */
+        transform: scale(1.05);
+      }
+    `;
+  }}
 `;
 
 export type TButtonElProps = {
@@ -62,6 +82,8 @@ enum IconVariants {
 
 type TButtonProps = {
   variant?: ButtonVariants;
+  buttonStyle?: 'primary' | 'outline';
+  size?: 'small';
   onClick: () => void;
   disabled?: boolean;
   icon?: IconVariants;
@@ -69,11 +91,12 @@ type TButtonProps = {
 
 const Button: React.FC<TButtonProps> = (props): React.ReactElement => {
   const variant = props.variant ? props.variant : ButtonVariants.Text;
-
+  const buttonStyle = props.buttonStyle ? props.buttonStyle : 'primary';
+  const size = props.size ? props.size : false;
   switch (variant) {
     case ButtonVariants.Text:
       return (
-        <TextButtonStyled type="button" {...props}>
+        <TextButtonStyled type="button" {...props} size={size ? size : undefined} buttonStyle={buttonStyle}>
           {props.children}
         </TextButtonStyled>
       );

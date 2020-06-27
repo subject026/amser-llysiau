@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
 import { useSelector } from '../../state/reducers';
-import { PROJECT_STAR_TOGGLE, SELECT_PROJECT, CREATE_PROJECT } from '../../state/actions';
+import { PROJECT_STAR_TOGGLE, SELECT_PROJECT, CREATE_PROJECT, DELETE_PROJECT } from '../../state/actions';
 import { create as CreateProject } from '../../state/entities/project';
 import Form from '../styled/form';
 import Wrapper from '../styled/wrapper';
 import Input from '../styled/Input';
+import ButtonGroup from '../styled/ButtonGroup';
 import { StarToggleButton } from '../Button';
 import Button from '../Button';
 
@@ -114,7 +115,12 @@ const ProjectsView: React.FC = (): React.ReactElement => {
                         />
                       </ToggleStar>
                       <div>
-                        <Button onClick={() => dispatch(SELECT_PROJECT(project.id))}>open project</Button>
+                        <ButtonGroup>
+                          <Button onClick={() => dispatch(SELECT_PROJECT(project.id))}>open project</Button>
+                          <Button buttonStyle="outline" onClick={() => dispatch(DELETE_PROJECT(project))}>
+                            delete project
+                          </Button>
+                        </ButtonGroup>
                       </div>
                     </ProjectCard>
                   );
