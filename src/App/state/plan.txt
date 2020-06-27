@@ -1,0 +1,18 @@
+user settings
+-------------
+alarm volume
+
+
+
+db filesystem
+=============
+
+Filenames have created/last updated timestamps in filenames. Can use these when pulling in project data for the graphs.
+
+project_1_123456789_123456789.json
+project_2_123456789_123456789.json
+project_3_123456789_123456789.json
+
+? meta.json
+
+  -> store user settings?
