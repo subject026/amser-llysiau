@@ -11,6 +11,7 @@ import Input from '../styled/Input';
 import ButtonGroup from '../styled/ButtonGroup';
 import { StarToggleButton } from '../Button';
 import Button from '../Button';
+import ProjectCard from './ProjectCard';
 
 const Section = styled.section``;
 const CardGrid = styled.section`
@@ -21,12 +22,6 @@ const CardGrid = styled.section`
     grid-template-rows: 1fr;
     grid-gap: 15px;
   }
-`;
-
-const ProjectCard = styled.article`
-  display: grid;
-  grid-template-columns: 6fr 1fr;
-  grid-template-rows: 1fr 1fr;
 `;
 
 const CardTitle = styled.h2`
@@ -104,47 +99,12 @@ const ProjectsView: React.FC = (): React.ReactElement => {
             <Wrapper>
               <CardGrid>
                 {starred.map((project: TProject) => {
-                  console.log(project.isStar);
-                  return (
-                    <ProjectCard key={project.id}>
-                      <CardTitle>{project.title}</CardTitle>
-                      <ToggleStar>
-                        <StarToggleButton
-                          isStar={project.isStar}
-                          onClick={() => dispatch(PROJECT_STAR_TOGGLE(project.id))}
-                        />
-                      </ToggleStar>
-                      <div>
-                        <ButtonGroup>
-                          <Button onClick={() => dispatch(SELECT_PROJECT(project.id))}>open project</Button>
-                          <Button buttonStyle="outline" onClick={() => dispatch(DELETE_PROJECT(project))}>
-                            delete project
-                          </Button>
-                        </ButtonGroup>
-                      </div>
-                    </ProjectCard>
-                  );
+                  return <ProjectCard key={project.id} project={project} />;
                 })}
               </CardGrid>
               <CardGrid>
                 {notStarred.map((project: TProject) => (
-                  <ProjectCard key={project.id}>
-                    <CardTitle>{project.title}</CardTitle>
-                    <StarToggleButton
-                      isStar={project.isStar}
-                      onClick={() => dispatch(PROJECT_STAR_TOGGLE(project.id))}
-                    />
-
-                    <div>
-                      <Button
-                        onClick={() => {
-                          dispatch(SELECT_PROJECT(project.id));
-                        }}
-                      >
-                        open project
-                      </Button>
-                    </div>
-                  </ProjectCard>
+                  <ProjectCard key={project.id} project={project} />
                 ))}
               </CardGrid>
             </Wrapper>

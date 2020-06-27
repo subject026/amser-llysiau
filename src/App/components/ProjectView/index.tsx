@@ -5,9 +5,12 @@ import { useSelector } from '../../state/reducers';
 
 import Form from '../styled/form';
 import Wrapper from '../styled/wrapper';
-import { SELECT_TASK, CREATE_TASK } from '../../state/actions';
+import { CREATE_TASK } from '../../state/actions';
 import { create as CreateTask } from '../../state/entities/task';
 import { OPEN_MODAL } from '../../state/actions/view';
+import TaskCard from './TaskCard';
+import SessionCard from './SessionCard';
+import Button from '../Button';
 
 type TSectionProps = {
   taskId: boolean | string;
@@ -162,23 +165,19 @@ const ProjectView: React.FC = (): React.ReactElement => {
             <h4>tasks</h4>
             <Form onSubmit={handleFormSubmit}>
               <section>
-                <label htmlFor="title">task title</label>
-                <input type="text" id="title" name="title" value={state.taskTitle} onChange={handleFormInputChange} />
-                <button type="submit" onClick={addTask} disabled={state.taskTitle.length < 1}>
+                <div>
+                  <label htmlFor="title">task title</label>
+                  <textarea id="title" name="title" value={state.taskTitle} onChange={handleFormInputChange} />
+                </div>
+                <Button onClick={addTask} disabled={state.taskTitle.length < 1}>
                   add task
-                </button>
+                </Button>
               </section>
             </Form>
             <ul>
               {Object.keys(tasks).map((taskKey) => {
                 const task = tasks[taskKey];
-                return (
-                  <li key={task.id}>
-                    <button type="button" onClick={() => dispatch(SELECT_TASK(task.id))}>
-                      <h5>{task.title}</h5>
-                    </button>
-                  </li>
-                );
+                return <TaskCard key={task.id} task={task} />;
               })}
             </ul>
           </TasksView>
@@ -200,14 +199,7 @@ const ProjectView: React.FC = (): React.ReactElement => {
 
                   return Object.keys(sessions).map((key) => {
                     const session = sessions[key];
-                    const sessionLength = (session.finishTime - session.startTime) / 1000;
-                    console.log('sessionLength: ', sessionLength);
-                    const { focus } = sessions[key];
-                    return (
-                      <SessionSection>
-                        <span>{focus}</span>
-                      </SessionSection>
-                    );
+                    return <SessionCard key={session.id} session={session} />;
                   });
                 }
                 return <p>no sessions here yet</p>;
