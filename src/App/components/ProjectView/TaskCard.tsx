@@ -9,6 +9,10 @@ const Card = styled.li`
     cursor: pointer;
     border: 2px solid grey;
   }
+  h5 {
+    font-size: 1rem;
+    padding: 0 2rem;
+  }
 `;
 
 type TTaskCard = {

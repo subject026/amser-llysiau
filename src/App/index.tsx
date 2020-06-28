@@ -11,6 +11,7 @@ import ProjectsView from './components/ProjectsView';
 import ProjectView from './components/ProjectView';
 import TimerModal from './components/TimerModal/index';
 import Button from './components/Button';
+import Modal from './components/Modal';
 
 const GlobalStyles = createGlobalStyle`
 * {
@@ -21,8 +22,10 @@ const GlobalStyles = createGlobalStyle`
     font-size: ${({ theme }) => theme.layout.base};
     margin: 0;
     overflow-y: scroll;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Helvetica', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     overflow-x: hidden;
+    background-color: ${(props) => props.theme.colors.grey700};
+    color: ${(props) => props.theme.colors.grey100};
   }
 `;
 
@@ -45,8 +48,9 @@ const App: React.FC = (): React.ReactElement => {
   const {
     appData: { projects },
     view,
+    modal,
   } = appState;
-
+  console.log('APPSTATE!!!: ', appState);
   const loadDummyData = () => {
     const newProjects = createProjectsObject();
     dispatch(HYDRATE_PROJECTS(newProjects));
@@ -79,6 +83,7 @@ const App: React.FC = (): React.ReactElement => {
   return (
     <>
       <GlobalStyles />
+      {modal && <Modal />}
       {view.timerIsOpen && <TimerModal />}
       <Header>
         <Wrapper>

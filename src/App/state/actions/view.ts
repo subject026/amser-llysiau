@@ -20,8 +20,9 @@ export const SELECT_TASK = (id: string): TAction => ({
   },
 });
 
-export const OPEN_MODAL = (): TAction => ({
+export const OPEN_MODAL = (payload: TPayload): TAction => ({
   type: 'OPEN_MODAL',
+  payload,
 });
 
 export const CLOSE_MODAL = (): TAction => ({

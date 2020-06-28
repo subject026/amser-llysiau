@@ -17,6 +17,7 @@ type TSectionProps = {
 };
 
 const Section = styled.section`
+  padding: 60px 0;
   @media (max-width: 699px) {
     position: relative;
     transition: transform 100ms ease-out;
@@ -33,6 +34,7 @@ const Section = styled.section`
   @media (min-width: 700px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: ${(props) => props.theme.layout.base2};
     grid-template-rows: 1fr;
   }
 `;
@@ -51,6 +53,14 @@ type TTaskViewProps = {
 };
 
 const TasksView = styled.div`
+  background-color: #fff;
+  h4 {
+    margin: 0;
+    padding: ${(props) => props.theme.layout.base2};
+    background-color: ${(props) => props.theme.colors.grey200};
+    color: ${(props) => props.theme.colors.grey800};
+    font-size: 20px;
+  }
   ul {
     padding: 0;
     list-style-type: none;
@@ -157,12 +167,12 @@ const ProjectView: React.FC = (): React.ReactElement => {
   return (
     <>
       <ProjectHeader>
-        <Wrapper>{/* // */}</Wrapper>
+        <Wrapper>{/* // */}poo</Wrapper>
       </ProjectHeader>
       <Wrapper>
         <Section taskId={view.taskId} key={id}>
           <TasksView taskId={view.taskId}>
-            <h4>tasks</h4>
+            <h4>Tasks</h4>
             <Form onSubmit={handleFormSubmit}>
               <section>
                 <div>
@@ -187,7 +197,14 @@ const ProjectView: React.FC = (): React.ReactElement => {
               <button
                 type="button"
                 onClick={() => {
-                  dispatch(OPEN_MODAL());
+                  dispatch(
+                    OPEN_MODAL({
+                      type: 'newTask',
+                      data: {
+                        title: 'This is a testy westy',
+                      },
+                    }),
+                  );
                 }}
               >
                 new session

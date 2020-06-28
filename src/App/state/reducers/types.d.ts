@@ -8,7 +8,14 @@ type TAppData = {
   projects: TProjects;
 };
 
+type TModalState = {
+  open: boolean;
+  type: string;
+  data: object;
+};
+
 type TState = {
   appData: TAppData;
   view: TViewState;
+  modal: TModalState;
 };
