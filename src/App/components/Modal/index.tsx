@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../state/reducers';
 
+import TimerModal from './TimerModal';
+
 const Overlay = styled.div`
   position: fixed;
   width: 100vw;
@@ -18,19 +20,22 @@ const ModalBox = styled.section`
   height: 500px;
 `;
 
-function Modal() {
-  const appState = useSelector((state): TState => state);
-  const dispatch = useDispatch();
-  console.log('Modal.tsx - appState: ', appState);
-  if (appState.modal)
-    return (
-      <Overlay>
-        <ModalBox>
-          <h2>Modal</h2>
-          {/* <button onClick={dispatch()}></button> */}
-        </ModalBox>
-      </Overlay>
-    );
+enum ModalTypes {
+  TIMER = 'TIMER',
 }
+
+const Modal = () => {
+  const appState = useSelector((state): TState => state);
+  const { modal } = appState;
+  console.log('Modal.tsx - appState: ', appState);
+  if (modal) {
+    switch (modal.type) {
+      case ModalTypes.TIMER:
+        return <TimerModal />;
+      default:
+        return null;
+    }
+  }
+};
 
 export default Modal;

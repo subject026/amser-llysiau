@@ -11,6 +11,7 @@ import { OPEN_MODAL } from '../../state/actions/view';
 import TaskCard from './TaskCard';
 import SessionCard from './SessionCard';
 import Button from '../Button';
+import ButtonGroup from '../styled/ButtonGroup';
 
 type TSectionProps = {
   taskId: boolean | string;
@@ -19,6 +20,7 @@ type TSectionProps = {
 const Section = styled.section`
   padding: 60px 0;
   @media (max-width: 699px) {
+    padding: 0;
     position: relative;
     transition: transform 100ms ease-out;
     ${(props: TSectionProps) => {
@@ -39,15 +41,6 @@ const Section = styled.section`
   }
 `;
 
-const ProjectHeader = styled.div`
-  @media (min-width: 700px) {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 2;
-  }
-`;
-
 type TTaskViewProps = {
   taskId: boolean | string;
 };
@@ -61,14 +54,9 @@ const TasksView = styled.div`
     color: ${(props) => props.theme.colors.grey800};
     font-size: 20px;
   }
-  ul {
-    padding: 0;
-    list-style-type: none;
-  }
   @media (max-width: 699px) {
     width: 100%;
     position: absolute;
-    border: 2px solid blue;
     transition: visibility 300ms 0ms, opacity 200ms 100ms linear;
     ${(props: TTaskViewProps) => {
       if (props.taskId) {
@@ -94,14 +82,23 @@ type TSessionsViewProps = {
 };
 
 const SessionsView = styled.div`
+  background-color: #fff;
+  h4 {
+    margin: 0;
+    padding: ${(props) => props.theme.layout.base2};
+    background-color: ${(props) => props.theme.colors.grey200};
+    @media (min-width: 699px) {
+      background-color: ${(props) => (props.taskId ? props.theme.colors.grey100 : props.theme.colors.grey200)};
+    }
+    color: ${(props) => props.theme.colors.grey800};
+    font-size: 20px;
+  }
   @media (max-width: 699px) {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 0;
     transform: translateX(calc(100% + 45px));
     transition: visibility 300ms 0ms, opacity 200ms 100ms linear;
-    border: 10px double pink;
     ${(props: TSessionsViewProps) => {
       if (!props.taskId) {
         return css`
@@ -114,6 +111,10 @@ const SessionsView = styled.div`
     }}
   }
 
+  li + li {
+    margin-top: 32px;
+  }
+
   @media (min-width: 700px) {
     grid-column-start: 2;
     grid-column-end: 3;
@@ -122,12 +123,8 @@ const SessionsView = styled.div`
   }
 `;
 
-const SessionSection = styled.section`
-  background-color: #ffaaff;
-  padding: 30px 0;
-  & + section {
-    margin-top: 30px;
-  }
+const SessionsInner = styled.section`
+  padding: 32px;
 `;
 
 const ProjectView: React.FC = (): React.ReactElement => {
@@ -166,10 +163,7 @@ const ProjectView: React.FC = (): React.ReactElement => {
 
   return (
     <>
-      <ProjectHeader>
-        <Wrapper>{/* // */}poo</Wrapper>
-      </ProjectHeader>
-      <Wrapper>
+      <Wrapper sm="0" md="32px">
         <Section taskId={view.taskId} key={id}>
           <TasksView taskId={view.taskId}>
             <h4>Tasks</h4>
@@ -187,40 +181,42 @@ const ProjectView: React.FC = (): React.ReactElement => {
             <ul>
               {Object.keys(tasks).map((taskKey) => {
                 const task = tasks[taskKey];
-                return <TaskCard key={task.id} task={task} />;
+                return <TaskCard key={task.id} task={task} isSelected={task.id == view.taskId} />;
               })}
             </ul>
           </TasksView>
           <SessionsView taskId={view.taskId}>
             <div>
-              <p>sessionzz</p>
-              <button
-                type="button"
-                onClick={() => {
-                  dispatch(
-                    OPEN_MODAL({
-                      type: 'newTask',
-                      data: {
-                        title: 'This is a testy westy',
-                      },
-                    }),
-                  );
-                }}
-              >
-                new session
-              </button>
-              {(() => {
-                if (view.taskId) {
-                  const { sessions } = tasks[view.taskId];
-                  console.log('task sessions: ', sessions);
+              <h4>Sessions</h4>
+              <SessionsInner>
+                <ButtonGroup>
+                  <Button
+                    onClick={() => {
+                      dispatch(
+                        OPEN_MODAL({
+                          type: 'timer',
+                        }),
+                      );
+                    }}
+                  >
+                    new session
+                  </Button>
+                </ButtonGroup>
+                <ul>
+                  {(() => {
+                    if (view.taskId) {
+                      const { sessions } = tasks[view.taskId];
+                      console.log('task sessions: ', sessions);
 
-                  return Object.keys(sessions).map((key) => {
-                    const session = sessions[key];
-                    return <SessionCard key={session.id} session={session} />;
-                  });
-                }
-                return <p>no sessions here yet</p>;
-              })()}
+                      return Object.keys(sessions).map((key) => {
+                        const session = sessions[key];
+                        return <SessionCard key={session.id} session={session} />;
+                      });
+                    }
+                    return <p>no sessions here yet</p>;
+                  })()}
+                </ul>
+              </SessionsInner>
             </div>
           </SessionsView>
         </Section>

@@ -27,6 +27,11 @@ const GlobalStyles = createGlobalStyle`
     background-color: ${(props) => props.theme.colors.grey700};
     color: ${(props) => props.theme.colors.grey100};
   }
+
+  ul {
+    padding: 0;
+    list-style-type: none;
+  }
 `;
 
 const Header = styled.header`
