@@ -50,7 +50,6 @@ const App: React.FC = (): React.ReactElement => {
     view,
     modal,
   } = appState;
-  console.log('APPSTATE!!!: ', appState);
   const loadDummyData = () => {
     const newProjects = createProjectsObject();
     dispatch(HYDRATE_PROJECTS(newProjects));
@@ -71,8 +70,6 @@ const App: React.FC = (): React.ReactElement => {
 
   React.useEffect(() => {
     const localData = JSON.parse(localStorage.getItem('appData'));
-    console.log('Locals dater: ', localData);
-    console.log(appState);
     if (!localData) {
       if (Object.keys(projects).length) {
         localStorage.setItem('appData', JSON.stringify(appState.appData));
@@ -83,7 +80,7 @@ const App: React.FC = (): React.ReactElement => {
   return (
     <>
       <GlobalStyles />
-      {modal && <Modal />}
+      {modal.open && <Modal />}
       {view.timerIsOpen && <TimerModal />}
       <Header>
         <Wrapper>

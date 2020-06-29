@@ -22,7 +22,6 @@ let source = ctx.createBufferSource();
 
 const useAlarm = () => {
   if (!init) {
-    console.log('alarm init...');
     fetch(coinUrl)
       .then((res) => res.arrayBuffer())
       .then((data) => {
@@ -39,13 +38,11 @@ const useAlarm = () => {
   }
   return {
     startAlarm(willLoop = true) {
-      const volume = 30;
+      const volume = 10;
 
       const { data } = state;
-      console.log('dataAAaaaa: ', data);
       const dataCloned = data.slice(0);
       ctx.decodeAudioData(data, (buffer) => {
-        console.log('bufferbufferbuffer', buffer);
         source.buffer = buffer;
         source.playbackRate.value = 2;
         source.loop = willLoop; // use his for setting state too as if false we don't need to update alarmOn state
