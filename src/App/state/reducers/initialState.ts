@@ -4,7 +4,7 @@ const initialState: TState = {
   },
   view: { timerIsOpen: false },
   modal: {
-    open: true,
+    open: false,
     type: 'addTask',
     data: {
       bloop: 'dataaa',

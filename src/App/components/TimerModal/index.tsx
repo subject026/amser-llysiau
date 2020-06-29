@@ -17,7 +17,7 @@ const Modal = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #202020;
+  background-color: rgba(10, 10, 10, 0.95);
   color: #ddd;
 `;
 
@@ -152,7 +152,7 @@ const TimerModal: React.FC = (): React.ReactElement => {
     setState(
       (prevState): TTimerState => {
         // const secondsRemaining = prevState.sessionLengthMinutes * 60;
-        const secondsRemaining = 3;
+        const secondsRemaining = 63;
         return {
           ...prevState,
           timerState: TimerStates.RUNNING,
