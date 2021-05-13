@@ -33,6 +33,9 @@ export const TextButtonStyled = styled.button`
         background-color: ${theme.button[buttonStyle].hover.bgColor}; */
         transform: scale(1.05);
       }
+      &:disabled {
+        opacity: 0.8;
+      }
     `;
   }}
 `;
@@ -96,7 +99,7 @@ const Button: React.FC<TButtonProps> = (props): React.ReactElement => {
   switch (variant) {
     case ButtonVariants.Text:
       return (
-        <TextButtonStyled type="button" {...props} size={size ? size : undefined} buttonStyle={buttonStyle}>
+        <TextButtonStyled type="button" {...props} size={size || undefined} buttonStyle={buttonStyle}>
           {props.children}
         </TextButtonStyled>
       );

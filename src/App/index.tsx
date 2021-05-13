@@ -106,10 +106,10 @@ const App: React.FC = (): React.ReactElement => {
         </Wrapper>
       </Header>
       {/* ROUTER HERE
-          
+
             /projects
             /project/*project-id*
-            
+
           */}
       {view.projectId && <ProjectView />}
       {!view.projectId && <ProjectsView />}

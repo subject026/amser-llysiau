@@ -191,6 +191,7 @@ const ProjectView: React.FC = (): React.ReactElement => {
               <SessionsInner>
                 <ButtonGroup>
                   <Button
+                    disabled={!view.taskId}
                     onClick={() => {
                       dispatch(
                         OPEN_MODAL({

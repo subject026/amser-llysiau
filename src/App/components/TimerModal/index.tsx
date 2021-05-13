@@ -149,18 +149,17 @@ const TimerModal: React.FC = (): React.ReactElement => {
   };
 
   const handleStartClick = () => {
-    setState(
-      (prevState): TTimerState => {
-        // const secondsRemaining = prevState.sessionLengthMinutes * 60;
-        const secondsRemaining = 63;
-        return {
-          ...prevState,
-          timerState: TimerStates.RUNNING,
-          secondsRemaining,
-          startTime: Date.now(),
-        };
-      },
-    );
+    setState((prevState): TTimerState => {
+      console.log({ prevState });
+      // const secondsRemaining = Math.floor(prevState.sessionLengthMinutes) * 60;
+      const secondsRemaining = 3;
+      return {
+        ...prevState,
+        timerState: TimerStates.RUNNING,
+        secondsRemaining,
+        startTime: Date.now(),
+      };
+    });
 
     lastTick = Date.now();
     interval.current = setInterval(tick, 20);
@@ -252,7 +251,7 @@ const TimerModal: React.FC = (): React.ReactElement => {
               height="500"
             />
 
-            <button type="button" onClick={handleStartClick}>
+            <button type="button" onClick={handleStartClick} disabled={!focus}>
               start
             </button>
             <button type="button" onClick={handleCloseTimerModal}>

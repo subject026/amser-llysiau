@@ -52,7 +52,10 @@ const devConfig = {
 const prodConfig = {
   ...baseConfig,
   devtool: false,
-  plugins: [...baseConfig.plugins, new BundleAnalyzer()],
+  plugins: [
+    ...baseConfig.plugins,
+    // new BundleAnalyzer()
+  ],
 };
 
 module.exports = (env, argv) => {
