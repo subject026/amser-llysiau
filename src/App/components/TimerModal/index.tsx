@@ -151,8 +151,8 @@ const TimerModal: React.FC = (): React.ReactElement => {
   const handleStartClick = () => {
     setState((prevState): TTimerState => {
       console.log({ prevState });
-      // const secondsRemaining = Math.floor(prevState.sessionLengthMinutes) * 60;
-      const secondsRemaining = 3;
+      const secondsRemaining = Math.floor(prevState.sessionLengthMinutes) * 60;
+      // const secondsRemaining = 3;
       return {
         ...prevState,
         timerState: TimerStates.RUNNING,
